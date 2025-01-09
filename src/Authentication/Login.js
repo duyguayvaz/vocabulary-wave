@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Card, CardBody, CardTitle, FormGroup, FormLabel, FormControl } from "react-bootstrap";
 
-const Login = () => {
+const Login = ({ onBackToMenu }) => {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,44 +17,43 @@ const Login = () => {
       localStorage.setItem("token", response.data.jwt);
       alert("Login successful!");
     } catch (error) {
-      console.error("Error during login:", error.response.data);
+      console.error("Error during login:", error.response?.data || error);
       alert("Login failed. Check your credentials and try again.");
     }
   };
 
   return (
-    <Container className="mt-5">
-      <Row className="justify-content-center">
-        <Col md={6}>
-          <h2 className="text-center">Login</h2>
-          <Form onSubmit={handleLogin}>
-            <Form.Group controlId="formIdentifier" className="mb-3">
-              <Form.Label>Email or Username</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter email or username"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formPassword" className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Button variant="success" type="submit" className="w-100">
-              Login
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+    <Card>
+      <CardBody>
+        <CardTitle>Login Menu</CardTitle>
+        <Form onSubmit={handleLogin}>
+          <FormGroup controlId="formIdentifier">
+            <FormLabel>Email or Username</FormLabel>
+            <FormControl
+              type="text"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
+              placeholder="Enter your email or username"
+            />
+          </FormGroup>
+          <FormGroup controlId="formPassword">
+            <FormLabel>Password</FormLabel>
+            <FormControl
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+            />
+          </FormGroup>
+          <Button variant="primary" type="submit">
+            Login
+          </Button>
+          <Button variant="secondary" onClick={onBackToMenu} className="ml-2">
+            Back
+          </Button>
+        </Form>
+      </CardBody>
+    </Card>
   );
 };
 

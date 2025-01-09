@@ -1,34 +1,43 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Register from "./Authentication/Register";
+import React, { useState } from "react";
+import { Button, Card, CardBody, CardTitle } from "react-bootstrap";
 import Login from "./Authentication/Login";
+import Register from "./Authentication/Register";
 
+function App() {
+  const [login, setLogin] = useState(false);
+  const [register, setRegister] = useState(false)
 
-const Home = () => {
+  const handleLogin = () => {
+    setLogin(true);
+  };
+
+  const handleLoginBack = () => {
+    setLogin(false);
+  };
+
+  const handleRegister = () => {
+    setRegister(true)
+  };
+  const RegisterBack=()=>{
+    setRegister(false)
+  }
+  if(register){
+    return <Register onBackToMenu={RegisterBack}/>
+  }
+
+  if (login) {
+    return <Login onBackToMenu={handleLoginBack} />;
+  }
+
   return (
-    <div className="home-container">
-      <div className="card-container">
-        <Link to="/login" className="home-card">
-          Giriş Yap
-        </Link>
-        <Link to="/register" className="home-card">
-          Kayıt Ol
-        </Link>
-      </div>
-    </div>
+    <Card>
+      <CardBody>
+        <CardTitle>Welcome to Vocabulary Wave</CardTitle>
+        <Button onClick={handleLogin}>Login</Button>
+        <Button onClick={handleRegister}>Register</Button>
+      </CardBody>
+    </Card>
   );
-};
-
-const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
-  );
-};
+}
 
 export default App;
