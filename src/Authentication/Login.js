@@ -1,62 +1,76 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Form, Button, Container, Row, Col, Card, CardBody, CardTitle, FormGroup, FormLabel, FormControl } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Card, Form, Button, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Login = ({ onBackToMenu }) => {
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
+function Login({ setIsLoggedIn, setIsAdmin, setUser }) {
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError('');
+  
     try {
-      const response = await axios.post("http://localhost:1337/api/auth/local", {
-        identifier,
+      const response = await axios.post('http://localhost:1337/api/auth/local', {
+        identifier,  
         password,
       });
-      console.log("Login successful:", response.data);
-      localStorage.setItem("token", response.data.jwt);
-      alert("Login successful!");
+  
+      setIsLoggedIn(true);
+      setUser(response.data.user.username);
+  
+      if (identifier === 'admin' && password === '1234') {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
     } catch (error) {
-      console.error("Error during login:", error.response?.data || error);
-      alert("Login failed. Check your credentials and try again.");
+      setError('Login failed. Check email or password.');
     }
   };
+  
 
   return (
-    <div className="card-container">
-    <Card className="aut-card">
-      <CardBody className="card-body">
-        <CardTitle>Login Menu</CardTitle>
+    <Card className="auth-card">
+      <Card.Body>
+        <Card.Title className="mb-4">Login to Vocabulary Wave</Card.Title>
+        {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleLogin}>
-          <FormGroup controlId="formIdentifier">
-            <FormLabel>Email or Username</FormLabel>
-            <FormControl
+          <Form.Group className="mb-3" controlId="formIdentifier">
+            <Form.Label>Email or Username</Form.Label>
+            <Form.Control
               type="text"
+              placeholder="Enter email or username"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
-              placeholder="Enter your email or username"
+              required
             />
-          </FormGroup>
-          <FormGroup controlId="formPassword">
-            <FormLabel>Password</FormLabel>
-            <FormControl
+          </Form.Group>
+
+          <Form.Group className="mb-4" controlId="formPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
               type="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
+              required
             />
-          </FormGroup>
-          <Button variant="primary" type="submit">
+          </Form.Group>
+
+          <Button variant="primary" type="submit" className="w-100">
             Login
           </Button>
-          <Button variant="secondary" onClick={onBackToMenu} className="ml-2">
-            Back
-          </Button>
         </Form>
-      </CardBody>
+        <div className="mt-3 text-center">
+          <a href="/register">Don't have an account? Register here</a>
+        </div>
+      </Card.Body>
     </Card>
-    </div>
   );
-};
+}
 
 export default Login;

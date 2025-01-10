@@ -1,75 +1,81 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Form, Button, Container, Row, Col, Card, CardBody, CardTitle, FormGroup, FormLabel, FormControl } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Card, Form, Button, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Register = ({ onBackToMenu }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function Register() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError('');
+
     try {
-      const response = await axios.post("http://localhost:1337/api/auth/local/register", {
-        username,
+      await axios.post('http://localhost:1337/api/auth/local/register', {
+        username,  
         email,
         password,
       });
-      console.log("Registration successful:", response.data);
-      alert("Registration successful! Please log in.");
+      alert('Registration Successful! You can now login.');
+      navigate('/login');
     } catch (error) {
-      console.error("Error during registration:", error.response?.data || error);
-      alert("Registration failed. Check your details and try again.");
+      setError('Registration failed. Please try again.');
     }
   };
 
   return (
-    <div className="card-container">
-    <Card className="aut-card">
-      <CardBody className="card-body">
-        <CardTitle>Register Menu</CardTitle>
+    <Card className="auth-card">
+      <Card.Body>
+        <Card.Title className="mb-4">Register for Vocabulary Wave</Card.Title>
+        {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleRegister}>
-          <FormGroup controlId="formUsername">
-            <FormLabel>Username</FormLabel>
-            <FormControl
+          <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
               type="text"
+              placeholder="Enter your name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter username"
               required
             />
-          </FormGroup>
-          <FormGroup controlId="formEmail">
-            <FormLabel>Email Address</FormLabel>
-            <FormControl
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
               type="email"
+              placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter email"
               required
             />
-          </FormGroup>
-          <FormGroup controlId="formPassword">
-            <FormLabel>Password</FormLabel>
-            <FormControl
+          </Form.Group>
+
+          <Form.Group className="mb-4" controlId="formPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
               type="password"
+              placeholder="Create a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password"
               required
             />
-          </FormGroup>
-          <Button variant="primary" type="submit">
+          </Form.Group>
+
+          <Button variant="success" type="submit" className="w-100">
             Register
           </Button>
-          <Button variant="secondary" onClick={onBackToMenu} className="ml-2">
-            Back
-          </Button>
         </Form>
-      </CardBody>
+        <div className="mt-3 text-center">
+          <a href="/login">Already have an account? Login here</a>
+        </div>
+      </Card.Body>
     </Card>
-    </div>
   );
-};
+}
 
 export default Register;
