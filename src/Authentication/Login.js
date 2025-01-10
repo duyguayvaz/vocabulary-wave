@@ -23,8 +23,9 @@ const Login = ({ onBackToMenu }) => {
   };
 
   return (
-    <Card>
-      <CardBody>
+    <div className="card-container">
+    <Card className="aut-card">
+      <CardBody className="card-body">
         <CardTitle>Login Menu</CardTitle>
         <Form onSubmit={handleLogin}>
           <FormGroup controlId="formIdentifier">
@@ -54,6 +55,7 @@ const Login = ({ onBackToMenu }) => {
         </Form>
       </CardBody>
     </Card>
+    </div>
   );
 };
 

@@ -24,8 +24,9 @@ const Register = ({ onBackToMenu }) => {
   };
 
   return (
-    <Card>
-      <CardBody>
+    <div className="card-container">
+    <Card className="aut-card">
+      <CardBody className="card-body">
         <CardTitle>Register Menu</CardTitle>
         <Form onSubmit={handleRegister}>
           <FormGroup controlId="formUsername">
@@ -67,6 +68,7 @@ const Register = ({ onBackToMenu }) => {
         </Form>
       </CardBody>
     </Card>
+    </div>
   );
 };
 
