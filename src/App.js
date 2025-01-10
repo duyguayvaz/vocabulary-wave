@@ -1,50 +1,56 @@
-// App.js
-import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
-import Login from "./Authentication/Login";
-import Register from "./Authentication/Register";
-import "./App.css";  // CSS dosyan
+// src/App.js
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-function App() {
-  const [login, setLogin] = useState(false);
-  const [register, setRegister] = useState(false);
+import Home from './pages/Home'
+import Register from './pages/Register'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
 
-  const handleLogin = () => setLogin(true);
-  const handleLoginBack = () => setLogin(false);
-  const handleRegister = () => setRegister(true);
-  const RegisterBack = () => setRegister(false);
+import Languages from './pages/dashboard/Languages'
+import MyAccount from './pages/dashboard/MyAccount'
+import MyInfo from './pages/dashboard/MyInfo'
+import MyVocab from './pages/dashboard/MyVocab'
 
-  // Kayıt sayfasına geçtiyse
-  if (register) {
-    return <Register onBackToMenu={RegisterBack} />;
+// PrivateRoute ile korumalı alan örneği
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem('token')
+  if (!token) {
+    window.location.href = '/giris-yap'
+    return null
   }
-
-  // Login sayfasına geçtiyse
-  if (login) {
-    return <Login onBackToMenu={handleLoginBack} />;
-  }
-
-  // Ana sayfa (iki kart görünecek)
-  return (
-    <div className="app-container">
-      {/* Üstteki Kart */}
-      <Card className="top-card">
-        <Card.Body>
-          <Card.Title className="card-title">Vocabulary Wave</Card.Title>
-        </Card.Body>
-      </Card>
-
-      {/* Ortadaki Kart (Login / Register Butonları) */}
-      <Card className="main-card">
-        <Card.Body>
-          <Button className="mb-3" onClick={handleLogin}>
-            Login
-          </Button>
-          <Button onClick={handleRegister}>Register</Button>
-        </Card.Body>
-      </Card>
-    </div>
-  );
+  return children
 }
 
-export default App;
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Ana sayfa */}
+        <Route path="/" element={<Home />} />
+
+        {/* Kayıt ve Giriş */}
+        <Route path="/kayit-ol" element={<Register />} />
+        <Route path="/giris-yap" element={<Login />} />
+
+        {/* Dashboard (Korumalı) */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
+          {/* Nested Routes */}
+          <Route path="languages" element={<Languages />} />
+          <Route path="my-account" element={<MyAccount />} />
+          <Route path="my-info" element={<MyInfo />} />
+          <Route path="my-vocab" element={<MyVocab />} />
+        </Route>
+      </Routes>
+    </Router>
+  )
+}
+
+export default App
