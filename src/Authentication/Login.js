@@ -15,13 +15,14 @@ function Login({ setIsLoggedIn, setIsAdmin, setUser }) {
   
     try {
       const response = await axios.post('http://localhost:1337/api/auth/local', {
-        identifier,  
+        identifier,
         password,
       });
   
+      localStorage.setItem('jwt', response.data.jwt); 
       setIsLoggedIn(true);
       setUser(response.data.user.username);
-  
+      
       if (identifier === 'admin' && password === '1234') {
         setIsAdmin(true);
       } else {
@@ -31,6 +32,7 @@ function Login({ setIsLoggedIn, setIsAdmin, setUser }) {
       setError('Login failed. Check email or password.');
     }
   };
+  
   
 
   return (

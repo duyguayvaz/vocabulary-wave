@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Login from './Authentication/Login';
 import Register from './Authentication/Register';
 import MainMenu from './UserMenu/MainMenu';
@@ -13,6 +13,7 @@ import Spanish from './Languages/Spanish';
 import AddWord from './AdminMenu/AddWord'; 
 import UpdateWord from './AdminMenu/UpdateWord'; 
 import DeleteWord from './AdminMenu/DeleteWord';
+import MyInfo from './UserMenu/MyInfo';
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
@@ -153,6 +154,14 @@ function App() {
                 isLoggedIn && isAdmin ? <DeleteWord /> : <Navigate to="/login" />
               }
             />
+
+            <Route
+              path="/myaccount/info"
+              element={
+                isLoggedIn ? <MyInfo user={user} /> : <Navigate to="/login" />
+              }
+/>
+
           </Routes>
         </Container>
       </div>
