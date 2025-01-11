@@ -4,14 +4,18 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Authentication/Login';
 import Register from './Authentication/Register';
-import MainMenu from './Menu/MainMenu';
-import AdminMenu from './Menu/AdminMenu';
-import Language from './Menu/Language';
-import MyAccount from './Menu/MyAccount';
+import MainMenu from './UserMenu/MainMenu';
+import AdminMenu from './AdminMenu/AdminMenu';
+import Language from './UserMenu/Language';
+import MyAccount from './UserMenu/MyAccount';
 import English from './Languages/English';
 import German from './Languages/German';
 import French from './Languages/French';
 import Spanish from './Languages/Spanish';
+import AddWord from './AdminMenu/AddWord'; 
+import UpdateWord from './AdminMenu/UpdateWord'; 
+
+
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
 function App() {
@@ -128,8 +132,19 @@ function App() {
                 isLoggedIn ? <Spanish /> : <Navigate to="/login" />
               }
             />
-
-
+           
+            <Route
+              path="/add-word"
+              element={
+                isLoggedIn && isAdmin ? <AddWord /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/update-word"
+              element={
+                isLoggedIn && isAdmin ? <UpdateWord /> : <Navigate to="/login" />
+              }
+            />
           </Routes>
         </Container>
       </div>
