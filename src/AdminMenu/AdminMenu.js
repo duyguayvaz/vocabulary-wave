@@ -13,6 +13,10 @@ function AdminMenu() {
     navigate('/update-word')
   }
 
+  const handleDeleteWord=()=>{
+    navigate('/delete-word')
+  }
+
   return (
     <Card className="menu-card">
       <Card.Body>
@@ -24,10 +28,14 @@ function AdminMenu() {
         >
           Kelime Ekle
         </Button>
-        <Button variant="danger" className="mb-2 w-100" onClick={handleupdateWord}>
+        <Button variant="danger" 
+                className="mb-2 w-100" 
+                onClick={handleupdateWord}>
           Kelime Güncelle
         </Button>
-        <Button variant="dark" className="mb-2 w-100">
+        <Button variant="dark" 
+                className="mb-2 w-100"
+                onClick={handleDeleteWord}>
           Kelime Sil
         </Button>
         <Button variant="dark" className="w-100">

@@ -1,7 +1,5 @@
-// App.js
-
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
 import Login from './Authentication/Login';
 import Register from './Authentication/Register';
 import MainMenu from './UserMenu/MainMenu';
@@ -14,7 +12,7 @@ import French from './Languages/French';
 import Spanish from './Languages/Spanish';
 import AddWord from './AdminMenu/AddWord'; 
 import UpdateWord from './AdminMenu/UpdateWord'; 
-
+import DeleteWord from './AdminMenu/DeleteWord';
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
@@ -34,7 +32,10 @@ function App() {
       <div className="App">
         <Navbar bg="primary" variant="dark" expand="lg">
           <Container>
-            <Navbar.Brand href="/">Vocabulary Wave</Navbar.Brand>
+            {/* Navbar Brand */}
+            <Navbar.Brand as={Link} to={isLoggedIn ? (isAdmin ? "/" : "/") : "/login"}>
+              Vocabulary Wave
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ms-auto">
@@ -49,8 +50,8 @@ function App() {
                   </>
                 ) : (
                   <>
-                    <Nav.Link href="/login">Login</Nav.Link>
-                    <Nav.Link href="/register">Register</Nav.Link>
+                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                    <Nav.Link as={Link} to="/register">Register</Nav.Link>
                   </>
                 )}
               </Nav>
@@ -143,6 +144,13 @@ function App() {
               path="/update-word"
               element={
                 isLoggedIn && isAdmin ? <UpdateWord /> : <Navigate to="/login" />
+              }
+            />
+            
+            <Route
+              path="/delete-word"
+              element={
+                isLoggedIn && isAdmin ? <DeleteWord /> : <Navigate to="/login" />
               }
             />
           </Routes>
