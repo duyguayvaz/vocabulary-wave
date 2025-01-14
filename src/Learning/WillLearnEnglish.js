@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Alert, Button } from 'react-bootstrap';
+import { Container, Alert, Button, Row, Col } from 'react-bootstrap';
 
 function WillLearnEnglish() {
   const [unknownWords, setUnknownWords] = useState([]); // "notknow" kelimeler
@@ -56,7 +56,8 @@ function WillLearnEnglish() {
     try {
       const token = localStorage.getItem('jwt');
   
-      const response = await axios.put(
+      // API'ye istek gönder
+      await axios.put(
         `http://localhost:1337/api/relations/${documentId}`,
         {
           data: {
@@ -70,19 +71,19 @@ function WillLearnEnglish() {
         }
       );
   
-      console.log('Güncellenen API Yanıtı:', response.data);
-  
       // Güncellenen kelimeyi state'den çıkar
-      setUnknownWords((prevWords) =>
-        prevWords.filter((word) => word.documentId !== documentId)
-      );
+      const updatedWords = unknownWords.filter((word) => word.documentId !== documentId);
+      setUnknownWords(updatedWords);
   
-      // Eğer rastgele seçilen kelime güncellendiyse sıfırla
+      // Eğer rastgele seçilen kelime güncellendiyse, yeni bir kelime seç
       if (randomWord && randomWord.documentId === documentId) {
-        setRandomWord(null);
+        if (updatedWords.length > 0) {
+          const randomIndex = Math.floor(Math.random() * updatedWords.length);
+          setRandomWord(updatedWords[randomIndex]);
+        } else {
+          setRandomWord(null); // Kelime kalmadıysa sıfırla
+        }
       }
-  
-      alert('Kelime başarıyla "learned" olarak işaretlendi.');
     } catch (err) {
       console.error('Güncelleme Hatası:', err.response?.data || err.message);
       alert('Kelime durumu güncellenirken bir hata oluştu.');
@@ -100,15 +101,26 @@ function WillLearnEnglish() {
             Rastgele Kelime Göster
           </Button>
           {randomWord && (
-            <Alert variant="info" className="d-flex justify-content-between align-items-center">
-              <strong>{randomWord.word}</strong>
+            <Alert variant="success">
+              <strong>{randomWord.word}</strong> - {randomWord.word_tr}
+              <Row className="mt-3">
+                <Col>
               <Button
                 variant="success"
-                size="sm"
                 onClick={() => markAsLearned(randomWord.documentId)}
               >
-                Learned Olarak İşaretle
+                Öğrendim
               </Button>
+              </Col>
+              <Col>
+              <Button
+                variant="success"
+                onClick={showRandomWord}
+              >
+                Tekrar Et
+              </Button>
+              </Col>
+              </Row>
             </Alert>
           )}
         </>

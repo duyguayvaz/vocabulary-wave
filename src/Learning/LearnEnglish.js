@@ -72,7 +72,7 @@ function LearnEnglish() {
 
   const updateWordStatus = async (status) => {
     if (!randomWord || !userId) return;
-
+  
     try {
       await axios.post(
         'http://localhost:1337/api/relations',
@@ -89,15 +89,24 @@ function LearnEnglish() {
           },
         }
       );
-      alert(`Kelime "${randomWord.word}" başarıyla "${status}" olarak işaretlendi.`);
-      
-      // Kelimeyi listeden çıkar ve yeni bir kelime getir
-      setWords(words.filter((word) => word.id !== randomWord.id));
-      getRandomWord();
+  
+      // Kelimeyi listeden çıkar
+      const updatedWords = words.filter((word) => word.id !== randomWord.id);
+      setWords(updatedWords);
+  
+      // Yeni bir kelime seç
+      if (updatedWords.length > 0) {
+        const randomIndex = Math.floor(Math.random() * updatedWords.length);
+        setRandomWord(updatedWords[randomIndex]);
+      } else {
+        setRandomWord(null); // Kelime kalmadıysa sıfırla
+      }
+  
     } catch (err) {
       alert('Kelime durumu güncellenirken bir hata oluştu.');
     }
   };
+  
 
   return (
     <Container className="mt-5">

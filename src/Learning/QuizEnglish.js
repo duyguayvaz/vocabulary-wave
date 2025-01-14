@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Yönlendirme için import
 import axios from 'axios';
 import { Container, Alert, Button, Form } from 'react-bootstrap';
 
@@ -8,6 +9,8 @@ function QuizEnglish() {
   const [userAnswer, setUserAnswer] = useState('');
   const [feedback, setFeedback] = useState(null);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate(); // Yönlendirme için hook
 
   useEffect(() => {
     fetchLearnedWords();
@@ -51,6 +54,7 @@ function QuizEnglish() {
     } else {
       setCurrentWord(null);
       setFeedback('Quiz tamamlandı!');
+      setTimeout(() => navigate('/english'), 2000); // 2 saniye sonra bir önceki menüye dön
     }
   };
 
@@ -81,14 +85,14 @@ function QuizEnglish() {
 
       setFeedback(isCorrect ? 'Doğru cevap! Kelime "know" olarak işaretlendi.' : 'Yanlış cevap. Kelime "notknow" olarak işaretlendi.');
 
-      // Güncellenen kelimeyi state'den çıkar
+      // Güncellenen kelimeyi state'den çıkar ve yeni bir kelimeyi seç
       setLearnedWords((prevWords) =>
         prevWords.filter((word) => word.documentId !== currentWord.documentId)
       );
 
       setTimeout(() => {
-        handleNextWord();
-      }, 2000); // 2 saniye sonra yeni kelimeyi göster
+        handleNextWord(); // Yeni kelimeyi seç
+      }, 2000); // 2 saniye bekle
     } catch (err) {
       console.error('Durum güncellenirken bir hata oluştu:', err.response?.data || err.message);
       alert('Kelimenin durumu güncellenirken bir hata oluştu.');
