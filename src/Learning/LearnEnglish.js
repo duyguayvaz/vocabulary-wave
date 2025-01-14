@@ -79,8 +79,7 @@ function LearnEnglish() {
         {
           data: {
             users_id: userId,
-            // --> Düzeltme: word_id olarak randomWord.id gönderiyoruz
-            word_id: randomWord.id,
+            word_id: randomWord.documentId,
             word_status: status,
           },
         },

@@ -9,6 +9,16 @@ function English() {
     navigate('/learn-english');
   };
 
+  const handleListEnglish=() =>{
+    navigate('/list-english')
+  }
+
+  const handleWillLearn=()=>{
+    navigate('/will-learn-english')
+  }
+  const handleQuizEnglish =()=>{
+    navigate('/quiz-english')
+  }
   return (
     <Card className="menu-card">
       <Card.Body>
@@ -19,15 +29,19 @@ function English() {
           Öğrenmeye Başla
         </Button>
         <Button
-          className="button mb-3 w-100">
+          className="button mb-3 w-100"
+          onClick={handleListEnglish}>          
           Öğrendiklerim
         </Button>
         <Button 
-          className="button mb-3 w-100">
+          className="button mb-3 w-100"
+          onClick={handleWillLearn}>
           Öğreneceklerim
         </Button>
         <Button 
-          className="button mb-3 w-100">
+          className="button mb-3 w-100"
+          onClick={handleQuizEnglish}
+          >
           Test Et
         </Button>
       </Card.Body>

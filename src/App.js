@@ -15,6 +15,9 @@ import UpdateWord from './AdminMenu/UpdateWord';
 import DeleteWord from './AdminMenu/DeleteWord';
 import MyInfo from './UserMenu/MyInfo';
 import LearnEnglish from './Learning/LearnEnglish'; // Yeni sayfa import
+import ListEnglish from'./Learning/ListEnglish';
+import WillLearnEnglish from './Learning/WillLearnEnglish'
+import QuizEnglish from './Learning/QuizEnglish'
 
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
@@ -166,11 +169,37 @@ function App() {
             />
 
             <Route>
-              {/* Diğer route'lar */}
               <Route
                 path="/learn-english"
                 element={
                   isLoggedIn ? <LearnEnglish /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/list-english"
+                element={
+                  isLoggedIn ? <ListEnglish /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/will-learn-english"
+                element={
+                  isLoggedIn ? <WillLearnEnglish /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/quiz-english"
+                element={
+                  isLoggedIn ? <QuizEnglish /> : <Navigate to="/login" />
                 }
               />
             </Route>
