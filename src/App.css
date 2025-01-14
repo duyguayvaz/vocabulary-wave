@@ -1,5 +1,5 @@
 body {
-  background-color: #f0f2f5;
+  background-color: #e8e1f0;
   color: #333;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -8,13 +8,18 @@ body {
   min-height: 100vh;
 }
 
-.auth-card, .menu-card {
+.navbar {
+  background: linear-gradient(to bottom, #8c5bc5, #b1f3ff);
+
+}
+
+.auth-card, .menu-card, .info-card {
+  background: linear-gradient(to bottom, #b1f3ff, #8c5bc5);
   max-width: 400px;
-  margin: 50px auto;
+  margin: 200px auto;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background-color: #ffffff;
 }
 
 .card-title {
@@ -29,4 +34,21 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+
+/* App.css */
+.title {
+  color: #8c5bc5; /* Main Menu yazısının rengi */
+  font-weight: bold;
+}
+
+.button {
+  background-color: #8c5bc5; /* Buton arka plan rengi */
+  border: none; /* Kenarlık olmaması */
+  color: #b1f3ff; /* Buton yazı rengi */
+}
+
+.button:hover {
+  background-color: #4f2e75; /* Hover durumu için buton rengi */
 }

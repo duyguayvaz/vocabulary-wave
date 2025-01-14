@@ -30,7 +30,7 @@ function Register() {
   return (
     <Card className="auth-card">
       <Card.Body>
-        <Card.Title className="mb-4">Register for Vocabulary Wave</Card.Title>
+        <Card.Title className="title mb-4">Register for Vocabulary Wave</Card.Title>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleRegister}>
           <Form.Group className="mb-3" controlId="formUsername">

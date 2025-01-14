@@ -28,7 +28,7 @@ function MyInfo({ user }) {
   return (
     <Card className="info-card">
       <Card.Body>
-        <Card.Title className="mb-4">Bilgilerim</Card.Title>
+        <Card.Title className="title mb-4">Bilgilerim</Card.Title>
         {error && <Alert variant="danger">{error}</Alert>}
         {userInfo ? (
           <div>

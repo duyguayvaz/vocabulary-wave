@@ -25,24 +25,26 @@ function Language() {
   return (
     <Card className="menu-card">
       <Card.Body>
-        <Card.Title className="mb-4">Diller</Card.Title>
-        <Button variant="primary" 
-                className="mb-2 w-100"
+        <Card.Title className="title mb-4">
+          Diller
+          </Card.Title>
+        <Button 
+                className="button mb-3 w-100"
                 onClick={handleEnglishClick}>
           İngilizce
         </Button>
-        <Button variant="secondary" 
-                className="mb-2 w-100"
+        <Button  
+                className="button mb-3 w-100"
                 onClick={handleGermanClick}>
           Almanca
         </Button>
-        <Button variant="secondary" 
-                className="mb-2 w-100"
+        <Button  
+                className="button mb-3 w-100"
                 onClick={handleFrenchClick}>
           Fransızca
         </Button>
-        <Button variant="secondary" 
-                className="mb-2 w-100"
+        <Button  
+                className="button mb-3 w-100"
                 onClick={handleSpanishClick}>
           İspanyolca
         </Button>

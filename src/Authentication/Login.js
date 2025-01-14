@@ -38,7 +38,7 @@ function Login({ setIsLoggedIn, setIsAdmin, setUser }) {
   return (
     <Card className="auth-card">
       <Card.Body>
-        <Card.Title className="mb-4">Login to Vocabulary Wave</Card.Title>
+        <Card.Title className="title mb-4">Login to Vocabulary Wave</Card.Title>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3" controlId="formIdentifier">
