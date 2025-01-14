@@ -40,8 +40,7 @@ function English() {
         </Button>
         <Button 
           className="button mb-3 w-100"
-          onClick={handleQuizEnglish}
-          >
+          onClick={handleQuizEnglish}>
           Test Et
         </Button>
       </Card.Body>

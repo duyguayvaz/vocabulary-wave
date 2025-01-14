@@ -14,12 +14,26 @@ import AddWord from './AdminMenu/AddWord';
 import UpdateWord from './AdminMenu/UpdateWord'; 
 import DeleteWord from './AdminMenu/DeleteWord';
 import MyInfo from './UserMenu/MyInfo';
-import LearnEnglish from './Learning/English/LearnEnglish'; // Yeni sayfa import
+
+import LearnEnglish from './Learning/English/LearnEnglish'; 
 import ListEnglish from'./Learning/English/ListEnglish';
 import WillLearnEnglish from './Learning/English/WillLearnEnglish'
-import QuizEnglish from './Learning/English/QuizEnglish'
-import LearnGerman from './Learning/German/LearnGerman'
-import ListGerman from './Learning/German/ListGerman';
+import QuizEnglish from './Learning/English/QuizEnglish';
+
+import LearnGerman from './Learning/German/LearnGerman'; 
+import ListGerman from'./Learning/German/ListGerman.js';
+import WillLearnGerman from './Learning/German/WillLearnGerman'
+import QuizGerman from './Learning/German/QuizGerman';
+
+import LearnFrench from './Learning/French/LearnFrench';
+import ListFrench from'./Learning/French/ListFrench';
+import WillLearnFrench from './Learning/French/WillLearnFrench'
+import QuizFrench from './Learning/French/QuizFrench';
+
+import LearnSpanish from './Learning/Spanish/LearnSpanish';
+import ListSpanish from'./Learning/Spanish/ListSpanish';
+import WillLearnSpanish from './Learning/Spanish/WillLearnSpanish'
+import QuizSpanish from './Learning/Spanish/QuizSpanish';
 
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
@@ -215,12 +229,110 @@ function App() {
               />
             </Route>
 
-            <Route
-              path="/list-german"
-              element={
-                isLoggedIn ? <ListGerman /> : <Navigate to="/login" />
-              }
-            />
+            <Route>
+              <Route
+                path="/list-german"
+                element={
+                  isLoggedIn ? <ListGerman /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/will-learn-german"
+                element={
+                  isLoggedIn ? <WillLearnGerman /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/quiz-german"
+                element={
+                  isLoggedIn ? <QuizGerman /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+
+            <Route>
+              <Route
+                path="/learn-french"
+                element={
+                  isLoggedIn ? <LearnFrench /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/list-french"
+                element={
+                  isLoggedIn ? <ListFrench /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/will-learn-french"
+                element={
+                  isLoggedIn ? <WillLearnFrench /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/quiz-french"
+                element={
+                  isLoggedIn ? <QuizFrench /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+          
+            <Route>
+              <Route
+                path="/learn-spanish"
+                element={
+                  isLoggedIn ? <LearnSpanish /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/list-spanish"
+                element={
+                  isLoggedIn ? <ListSpanish /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/will-learn-spanish"
+                element={
+                  isLoggedIn ? <WillLearnSpanish /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route>
+              <Route
+                path="/quiz-spanish"
+                element={
+                  isLoggedIn ? <QuizSpanish /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+
+
+
 
           </Routes>
         </Container>
