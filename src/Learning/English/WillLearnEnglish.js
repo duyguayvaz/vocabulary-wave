@@ -21,7 +21,7 @@ function WillLearnEnglish() {
           const userId = userResponse.data.id;
       
           const relationResponse = await axios.get(
-            `http://localhost:1337/api/relations?populate=*&filters[users_id][$eq]=${userId}`
+            `http://localhost:1337/api/relations?populate=word_id.lang_id&filters[users_id][$eq]=${userId}&&filters[word_id][lang_id][id][$eq]=2`
           );
       
           const unknownWords = relationResponse.data.data

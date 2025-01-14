@@ -22,7 +22,7 @@ function ListEnglish() {
 
         // Kullanıcının relations verisini çek
         const relationResponse = await axios.get(
-          `http://localhost:1337/api/relations?populate=*&filters[users_id][$eq]=${userId}`,
+          `http://localhost:1337/api/relations?populate=word_id.lang_id&filters[users_id][$eq]=${userId}&&filters[word_id][lang_id][id][$eq]=2`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -14,10 +14,12 @@ import AddWord from './AdminMenu/AddWord';
 import UpdateWord from './AdminMenu/UpdateWord'; 
 import DeleteWord from './AdminMenu/DeleteWord';
 import MyInfo from './UserMenu/MyInfo';
-import LearnEnglish from './Learning/LearnEnglish'; // Yeni sayfa import
-import ListEnglish from'./Learning/ListEnglish';
-import WillLearnEnglish from './Learning/WillLearnEnglish'
-import QuizEnglish from './Learning/QuizEnglish'
+import LearnEnglish from './Learning/English/LearnEnglish'; // Yeni sayfa import
+import ListEnglish from'./Learning/English/ListEnglish';
+import WillLearnEnglish from './Learning/English/WillLearnEnglish'
+import QuizEnglish from './Learning/English/QuizEnglish'
+import LearnGerman from './Learning/German/LearnGerman'
+import ListGerman from './Learning/German/ListGerman';
 
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
@@ -203,6 +205,22 @@ function App() {
                 }
               />
             </Route>
+
+            <Route>
+              <Route
+                path="/learn-german"
+                element={
+                  isLoggedIn ? <LearnGerman /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
+
+            <Route
+              path="/list-german"
+              element={
+                isLoggedIn ? <ListGerman /> : <Navigate to="/login" />
+              }
+            />
 
           </Routes>
         </Container>
