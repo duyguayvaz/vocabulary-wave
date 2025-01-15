@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, Button, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function LearnEnglish() {
   const [words, setWords] = useState([]);
   const [randomWord, setRandomWord] = useState(null);
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState(null);
+  const navigate = useNavigate(); // useNavigate hook'unu kullanıyoruz
 
   useEffect(() => {
     const fetchData = async () => {
@@ -118,9 +120,14 @@ function LearnEnglish() {
                       Bilmiyorum
                     </Button>
                   </Col>
-
-                  
                 </Row>
+                <Button
+                  className="mt-4 d-block mx-auto"
+                  variant='dark'
+                  onClick={() => navigate('/language/english')}
+                >
+                  Bu Kadar Yeter
+                </Button>
               </>
             )}
           </>
