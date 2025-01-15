@@ -63,11 +63,6 @@ function WillLearnEnglish() {
           data: {
             word_status: 'learned',
           },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
   

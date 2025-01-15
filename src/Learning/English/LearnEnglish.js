@@ -37,12 +37,7 @@ function LearnEnglish() {
 
         // Kelimeleri çek
         const wordResponse = await axios.get(
-          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=1',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=1'
         );
 
         // --> Düzeltme: word’lerin id’lerini relations içermiyorsa listele

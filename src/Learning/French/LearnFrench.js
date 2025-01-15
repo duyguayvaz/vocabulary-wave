@@ -37,12 +37,7 @@ function LearnFrench() {
 
         // Kelimeleri çek
         const wordResponse = await axios.get(
-          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=5',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=5'
         );
 
         // --> Düzeltme: word’lerin id’lerini relations içermiyorsa listele

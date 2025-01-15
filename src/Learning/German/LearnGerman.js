@@ -32,12 +32,7 @@ function LearnGerman() {
         );
 
         const wordResponse = await axios.get(
-          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=3', // Lang ID: 3 for German
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=3'
         );
 
         const filteredWords = wordResponse.data.data.filter(
@@ -72,11 +67,6 @@ function LearnGerman() {
             users_id: userId,
             word_id: randomWord.documentId,
             word_status: status,
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
           },
         }
       );

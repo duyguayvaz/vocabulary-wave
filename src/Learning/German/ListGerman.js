@@ -22,12 +22,7 @@ function ListGerman() {
 
         // Kullanıcının relations verisini çek
         const relationResponse = await axios.get(
-          `http://localhost:1337/api/relations?populate=word_id.lang_id&filters[users_id][$eq]=${userId}&&filters[word_id][lang_id][id][$eq]=7`, // Lang ID: 3 for German
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          `http://localhost:1337/api/relations?populate=word_id.lang_id&filters[users_id][$eq]=${userId}&&filters[word_id][lang_id][id][$eq]=7`
         );
 
         // "know" olan kelimeleri filtrele

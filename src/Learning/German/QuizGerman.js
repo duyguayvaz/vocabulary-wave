@@ -29,7 +29,7 @@ function QuizGerman() {
       const userId = userResponse.data.id;
 
       const relationResponse = await axios.get(
-        `http://localhost:1337/api/relations?populate=word_id.lang_id&filters[users_id][$eq]=${userId}&&filters[word_id][lang_id][id][$eq]=2&filters[word_status][$eq]=learned`
+        `http://localhost:1337/api/relations?populate=word_id.lang_id&filters[users_id][$eq]=${userId}&&filters[word_id][lang_id][id][$eq]=7&filters[word_status][$eq]=learned`
       );
 
       const words = relationResponse.data.data.map((rel) => ({
@@ -74,11 +74,6 @@ function QuizGerman() {
         {
           data: {
             word_status: newStatus,
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
           },
         }
       );

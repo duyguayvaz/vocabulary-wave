@@ -37,12 +37,7 @@ function LearnSpanish() {
 
         // Kelimeleri çek
         const wordResponse = await axios.get(
-          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=11',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=11'
         );
 
         // --> Düzeltme: word’lerin id’lerini relations içermiyorsa listele
@@ -81,11 +76,6 @@ function LearnSpanish() {
             users_id: userId,
             word_id: randomWord.documentId,
             word_status: status,
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
           },
         }
       );
