@@ -1,51 +1,67 @@
+// Bu bileşen, kullanıcıya hangi dili seçmek istediğini gösteren bir menü kartı sunar.
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function Language() {
+  // useNavigate hook'u ile sayfalar arası geçiş yapıyoruz.
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-  
-    const handleEnglishClick = () => {
-      navigate('/language/english');
-    };
+  // İngilizce seçildiğinde /language/english sayfasına yönlendirir.
+  const handleEnglishClick = () => {
+    navigate('/language/english');
+  };
 
-    const handleGermanClick = () => {
-      navigate('/language/german');
-    };
+  // Almanca seçildiğinde /language/german sayfasına yönlendirir.
+  const handleGermanClick = () => {
+    navigate('/language/german');
+  };
 
-    const handleFrenchClick = () => {
-      navigate('/language/french');
-    };
+  // Fransızca seçildiğinde /language/french sayfasına yönlendirir.
+  const handleFrenchClick = () => {
+    navigate('/language/french');
+  };
 
-    const handleSpanishClick = () => {
-      navigate('/language/spanish');
-    };
+  // İspanyolca seçildiğinde /language/spanish sayfasına yönlendirir.
+  const handleSpanishClick = () => {
+    navigate('/language/spanish');
+  };
 
+  // Kart içinde dört dil seçeneği sunuyoruz. 
   return (
     <Card className="menu-card">
       <Card.Body>
-        <Card.Title className="title mb-4">
-          Diller
-          </Card.Title>
+        <Card.Title className="title mb-4">Diller</Card.Title>
+
+        {/* İngilizce butonu */}
         <Button 
-                className="button mb-3 w-100"
-                onClick={handleEnglishClick}>
+          className="button mb-3 w-100"
+          onClick={handleEnglishClick}
+        >
           İngilizce
         </Button>
-        <Button  
-                className="button mb-3 w-100"
-                onClick={handleGermanClick}>
+
+        {/* Almanca butonu */}
+        <Button
+          className="button mb-3 w-100"
+          onClick={handleGermanClick}
+        >
           Almanca
         </Button>
-        <Button  
-                className="button mb-3 w-100"
-                onClick={handleFrenchClick}>
+
+        {/* Fransızca butonu */}
+        <Button
+          className="button mb-3 w-100"
+          onClick={handleFrenchClick}
+        >
           Fransızca
         </Button>
-        <Button  
-                className="button mb-3 w-100"
-                onClick={handleSpanishClick}>
+
+        {/* İspanyolca butonu */}
+        <Button
+          className="button mb-3 w-100"
+          onClick={handleSpanishClick}
+        >
           İspanyolca
         </Button>
       </Card.Body>
@@ -53,4 +69,5 @@ function Language() {
   );
 }
 
+// Bu bileşeni dışa aktarıyoruz ki başka dosyalarda da kullanılabilsin.
 export default Language;

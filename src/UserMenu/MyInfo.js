@@ -1,8 +1,14 @@
+// Bu bileşen, kullanıcının kişisel bilgilerini görüntülemesini ve düzenlemesini sağlar.
 import React, { useEffect, useState } from 'react';
 import { Card, Alert, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
 function MyInfo() {
+  // userInfo: kullanıcı bilgilerini tutmak için
+  // error: hata mesajı
+  // success: başarı mesajı
+  // formData: güncellenen değerleri tutmak için
+  // showForm: güncelleme formunu göster/gizle
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -12,17 +18,20 @@ function MyInfo() {
   });
   const [showForm, setShowForm] = useState(false);
 
+  // Bileşen yüklendiğinde kullanıcı bilgilerini çekiyoruz.
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem('jwt');
-        const response = await axios.get('http://localhost:1337/api/users/me', {
+        const response = await axios.get('http://34.78.14.168:1337/api/users/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
+        // Kullanıcı bilgilerini state'e kaydediyoruz.
         setUserInfo(response.data);
+        // Formu doldurmak için ilk değerleri ayarlıyoruz.
         setFormData({
           username: response.data.username,
           email: response.data.email,
@@ -35,24 +44,29 @@ function MyInfo() {
     fetchUserInfo();
   }, []);
 
+  // Formdaki alanlar değişince formData'yı güncelliyoruz.
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Form gönderildiğinde güncelleme isteği atıyoruz.
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+
     try {
+      // Kullanıcı bilgilerini güncellemek için PUT isteği
       const response = await axios.put(
-        `http://localhost:1337/api/users/${userInfo.id}`,
+        `http://34.78.14.168:1337/api/users/${userInfo.id}`,
         {
           username: formData.username,
           email: formData.email,
         }
       );
 
+      // Başarılı olursa kullanıcı bilgilerini güncelliyoruz.
       setUserInfo(response.data);
       setSuccess('User information updated successfully.');
       setShowForm(false);
@@ -61,6 +75,7 @@ function MyInfo() {
     }
   };
 
+  // Kart içinde kullanıcı bilgilerinin gösterimi ve güncelleme formu
   return (
     <Card className="info-card">
       <Card.Body>
@@ -69,10 +84,10 @@ function MyInfo() {
           <div>
             <p><strong>Kullanıcı Adı:</strong> {userInfo.username}</p>
             <p><strong>Email:</strong> {userInfo.email}</p>
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               className="mt-3"
-              style={{backgroundColor: '#647daf',border: 'none'}} 
+              style={{backgroundColor: '#647daf', border: 'none'}}
               onClick={() => setShowForm(!showForm)}
             >
               Bilgileri Güncelle
@@ -80,6 +95,7 @@ function MyInfo() {
           </div>
         )}
 
+        {/* Kullanıcı butona basarsa form görüntülenir. */}
         {showForm && (
           <Form onSubmit={handleSubmit} className="mt-4">
             <Form.Group controlId="username">
@@ -102,15 +118,17 @@ function MyInfo() {
                 required
               />
             </Form.Group>
-            <Button  
-            type="submit" 
-            className="mt-3" 
-            style={{backgroundColor: '#647daf',border: 'none'}}>
+            <Button
+              type="submit"
+              className="mt-3"
+              style={{backgroundColor: '#647daf', border: 'none'}}
+            >
               Güncelle
             </Button>
           </Form>
         )}
 
+        {/* Hata veya başarı mesajları */}
         {error && <Alert className="mt-3" variant="light">{error}</Alert>}
         {success && <Alert className="mt-3" variant="light">{success}</Alert>}
       </Card.Body>
@@ -118,4 +136,5 @@ function MyInfo() {
   );
 }
 
+// Bu bileşeni dışa aktarıyoruz.
 export default MyInfo;

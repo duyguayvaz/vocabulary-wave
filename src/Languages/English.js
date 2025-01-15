@@ -1,24 +1,34 @@
+// Bu bileşen İngilizce için bir menü kartı oluşturuyor.
+// useNavigate hook'u ile sayfalar arası yönlendirme yapacağız.
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function English() {
+  // Sayfalar arası geçiş yapmak için useNavigate'i kullanıyoruz.
   const navigate = useNavigate();
 
+  // "Öğrenmeye Başla" butonu tıklandığında /learn-english sayfasına yönlendirme.
   const handleStartLearning = () => {
     navigate('/learn-english');
   };
 
-  const handleListEnglish=() =>{
-    navigate('/list-english')
-  }
+  // "Öğrendiklerim" butonu tıklandığında /list-english sayfasına yönlendirme.
+  const handleListEnglish = () => {
+    navigate('/list-english');
+  };
 
-  const handleWillLearn=()=>{
-    navigate('/will-learn-english')
-  }
-  const handleQuizEnglish =()=>{
-    navigate('/quiz-english')
-  }
+  // "Öğreneceklerim" butonu tıklandığında /will-learn-english sayfasına yönlendirme.
+  const handleWillLearn = () => {
+    navigate('/will-learn-english');
+  };
+
+  // "Test Et" butonu tıklandığında /quiz-english sayfasına yönlendirme.
+  const handleQuizEnglish = () => {
+    navigate('/quiz-english');
+  };
+
+  // Bir Card bileşeni içerisinde dört farklı buton gösteriyoruz.
   return (
     <Card className="menu-card">
       <Card.Body>
@@ -48,4 +58,5 @@ function English() {
   );
 }
 
+// Bu bileşeni diğer dosyalarda da kullanabilmek için dışa aktarıyoruz.
 export default English;

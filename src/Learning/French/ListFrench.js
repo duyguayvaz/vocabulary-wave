@@ -1,18 +1,22 @@
+// Bu bileşen, kullanıcının "know" durumundaki Fransızca kelimelerini listeler.
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, Alert, ListGroup } from 'react-bootstrap';
 
 function ListFrench() {
+  // knownWords: kullanıcının bildiği Fransızca kelimeler
+  // error: oluşabilecek hata mesajları
   const [knownWords, setKnownWords] = useState([]);
   const [error, setError] = useState(null);
 
+  // Bileşen ilk yüklendiğinde kullanıcının "know" durumundaki kelimelerini çekiyoruz.
   useEffect(() => {
     const fetchKnownWords = async () => {
       try {
         const token = localStorage.getItem('jwt');
 
-        // Kullanıcı bilgilerini çek
-        const userResponse = await axios.get('http://localhost:1337/api/users/me', {
+        // Kullanıcı bilgilerini alıyoruz
+        const userResponse = await axios.get('http://34.78.14.168:1337/api/users/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -20,12 +24,13 @@ function ListFrench() {
 
         const userId = userResponse.data.id;
 
-        // Kullanıcının relations verisini çek
+        // Kullanıcının relations verisini çekiyoruz, lang_id=8 ise Fransızca'ya karşılık geliyor.
+        // (Not: Buradaki 8, API tarafında Fransızca için kullanılan ID)
         const relationResponse = await axios.get(
-          `http://localhost:1337/api/relations?populate=word_id.lang_id&filters[users_id][$eq]=${userId}&&filters[word_id][lang_id][id][$eq]=8`
+          `http://34.78.14.168:1337/api/relations?populate=word_id.lang_id&filters[users_id][$eq]=${userId}&&filters[word_id][lang_id][id][$eq]=8`
         );
 
-        // "know" olan kelimeleri filtrele
+        // "know" olanları filtreliyoruz ve sadece kelime metnini alıyoruz.
         const knownWords = relationResponse.data.data
           .filter((rel) => rel.word_status === 'know')
           .map((rel) => rel.word_id.word);
@@ -39,6 +44,7 @@ function ListFrench() {
     fetchKnownWords();
   }, []);
 
+  // Card içinde liste olarak kelimeleri gösteriyoruz.
   return (
     <Card className="mt-5 mx-auto" style={{ maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
       <Card.Body>

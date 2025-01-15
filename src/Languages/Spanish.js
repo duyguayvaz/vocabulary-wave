@@ -1,24 +1,34 @@
+// Bu bileşen İspanyolca için bir menü kartı oluşturuyor.
+// useNavigate hook'u ile sayfalar arası yönlendirme yapacağız.
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function Spanish() {
+  // Sayfalar arası geçiş yapmak için useNavigate'i kullanıyoruz.
   const navigate = useNavigate();
 
+  // "Öğrenmeye Başla" butonu tıklandığında /learn-spanish sayfasına yönlendirme.
   const handleStartLearning = () => {
     navigate('/learn-spanish');
   };
 
-  const handleListSpanish=() =>{
-    navigate('/list-spanish')
-  }
+  // "Öğrendiklerim" butonu tıklandığında /list-spanish sayfasına yönlendirme.
+  const handleListSpanish = () => {
+    navigate('/list-spanish');
+  };
 
-  const handleWillLearn=()=>{
-    navigate('/will-learn-spanish')
-  }
-  const handleQuizSpanish =()=>{
-    navigate('/quiz-spanish')
-  }
+  // "Öğreneceklerim" butonu tıklandığında /will-learn-spanish sayfasına yönlendirme.
+  const handleWillLearn = () => {
+    navigate('/will-learn-spanish');
+  };
+
+  // "Test Et" butonu tıklandığında /quiz-spanish sayfasına yönlendirme.
+  const handleQuizSpanish = () => {
+    navigate('/quiz-spanish');
+  };
+
+  // Bir Card bileşeni içerisinde dört farklı buton gösteriyoruz.
   return (
     <Card className="menu-card">
       <Card.Body>
@@ -48,4 +58,5 @@ function Spanish() {
   );
 }
 
+// Bu bileşeni diğer dosyalarda da kullanabilmek için dışa aktarıyoruz.
 export default Spanish;

@@ -1,21 +1,26 @@
+/* Body etiketinin genel arka plan ve yazı stili ayarları */
 body {
   background: linear-gradient(to bottom, #dddaed, #a6aad5);
   color: #333;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Uygulamanın tamamını kapsayan sınıf */
 .App {
   min-height: 100vh;
 }
 
+/* Navbar'ın arka plan rengini ayarlıyoruz */
 .navbar {
   background-color: #1d5186;
 }
 
+/* Navbar içindeki metin rengi */
 .navbar_v {
   color: #f3f3f3;
 }
 
+/* Kart stillerini ayarladığımız ortak sınıflar */
 .auth-card, .menu-card, .info-card {
   background: linear-gradient(to bottom, #dddaed, #a6aad5);
   max-width: 400px;
@@ -25,7 +30,7 @@ body {
   border-radius: 10px;
 }
 
-
+/* Linklerin varsayılan rengi ve hover durumunu ayarlıyoruz */
 a {
   color: #1d5186;
   text-decoration: none;
@@ -35,21 +40,21 @@ a:hover {
   text-decoration: underline;
 }
 
-
-/* App.css */
+/* Başlık stili: Renk ve yazı tipi ayarları */
 .title {
   color: #1d5186; /* Main Menu yazısının rengi */
   font-weight: bold;
   text-align: center;
 }
 
+/* Buton stillerini ayarlıyoruz */
 .button {
   background-color: #647daf; /* Buton arka plan rengi */
   border: none; /* Kenarlık olmaması */
   color: #f3f3f3; /* Buton yazı rengi */
 }
 
-
+/* Butonun üzerine gelince renk değişimi */
 .button:hover {
-  background-color: #1d5186; /* Hover durumu için buton rengi */
+  background-color: #1d5186;
 }

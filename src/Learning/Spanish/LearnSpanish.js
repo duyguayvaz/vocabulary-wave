@@ -1,25 +1,31 @@
+// Bu bileşen, İspanyolca kelimeleri kullanıcıya rastgele olarak gösterip
+// "Biliyorum" ya da "Bilmiyorum" şeklinde işaretlemesini sağlar.
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-
 function LearnSpanish() {
+  // words: Henüz görülmemiş İspanyolca kelimeler
+  // randomWord: Rastgele seçilen kelime
+  // error: hata mesajını tutmak için
+  // userId: giriş yapan kullanıcının ID'si
   const [words, setWords] = useState([]);
   const [randomWord, setRandomWord] = useState(null);
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState(null);
-  const navigate = useNavigate(); // useNavigate hook'unu kullanıyoruz
 
+  // useNavigate: sayfa geçişlerini yapmamızı sağlar
+  const navigate = useNavigate();
 
+  // Bileşen yüklendiğinde kullanıcı bilgilerini ve ilişkili verileri çekiyoruz.
   useEffect(() => {
-    // Kullanıcı ve ilişkili verileri al
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('jwt');
 
-        // Kullanıcı bilgilerini çek
-        const userResponse = await axios.get('http://localhost:1337/api/users/me', {
+        // Kullanıcı bilgisini çekiyoruz
+        const userResponse = await axios.get('http://34.78.14.168:1337/api/users/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -28,29 +34,28 @@ function LearnSpanish() {
         const userId = userResponse.data.id;
         setUserId(userId);
 
-        // Kullanıcının relations verisini çek
+        // relations tablosundan kullanıcıya ait kelime bilgilerini alıyoruz.
         const relationResponse = await axios.get(
-          `http://localhost:1337/api/relations?populate=*&filters[users_id][$eq]=${userId}`
+          `http://34.78.14.168:1337/api/relations?populate=*&filters[users_id][$eq]=${userId}`
         );
 
-        // --> Düzeltme: relation’lardaki word_id alanını çekiyoruz
+        // Kullanıcının gördüğü kelimelerin documentId'lerini relations dizisine ekliyoruz.
         const relations = relationResponse.data.data.map(
           (rel) => rel.word_id.documentId
         );
-        console.log(relations)
+        console.log(relations);
 
-        // Kelimeleri çek
+        // İspanyolca kelimeleri (lang_id=11) çekiyoruz.
         const wordResponse = await axios.get(
-          'http://localhost:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=11'
+          'http://34.78.14.168:1337/api/words?populate=*&filters[lang_id][lang_id][$eq]=11'
         );
 
-        // --> Düzeltme: word’lerin id’lerini relations içermiyorsa listele
+        // relations içinde olmayan kelimeleri words listesinden filtreliyoruz.
         const filteredWords = wordResponse.data.data.filter(
           (words) => !relations.includes(words.documentId)
-          
         );
         setWords(filteredWords);
-        console.log(filteredWords)
+        console.log(filteredWords);
 
       } catch (err) {
         setError('Veriler yüklenirken bir hata oluştu.');
@@ -60,23 +65,25 @@ function LearnSpanish() {
     fetchData();
   }, []);
 
+  // Rastgele bir kelime seçen fonksiyon
   const getRandomWord = () => {
     if (words.length > 0) {
       const randomIndex = Math.floor(Math.random() * words.length);
       setRandomWord(words[randomIndex]);
-      setError(null); // Eğer kelime varsa hata mesajını temizle
+      setError(null);
     } else {
       setRandomWord(null);
-      setError('Tüm Kelimeleri Gördün.'); // Kelime kalmadığında hata mesajı göster
+      setError('Tüm Kelimeleri Gördün.');
     }
   };
 
+  // Kelimenin durumunu "know" ya da "notknow" olarak ayarlıyoruz.
   const updateWordStatus = async (status) => {
     if (!randomWord || !userId) return;
-  
+
     try {
       await axios.post(
-        'http://localhost:1337/api/relations',
+        'http://34.78.14.168:1337/api/relations',
         {
           data: {
             users_id: userId,
@@ -85,35 +92,39 @@ function LearnSpanish() {
           },
         }
       );
-  
-      // Kelimeyi listeden çıkar
+
+      // Seçilen kelimeyi words listesinden çıkarıyoruz.
       const updatedWords = words.filter((word) => word.id !== randomWord.id);
       setWords(updatedWords);
-  
-      // Yeni bir kelime seç
+
+      // Eğer kelime kaldıysa rastgele bir kelime daha seç, yoksa null
       if (updatedWords.length > 0) {
         const randomIndex = Math.floor(Math.random() * updatedWords.length);
         setRandomWord(updatedWords[randomIndex]);
       } else {
-        setRandomWord(null); // Kelime kalmadıysa sıfırla
+        setRandomWord(null);
       }
-  
     } catch (err) {
       alert('Kelime durumu güncellenirken bir hata oluştu.');
     }
   };
-  
 
+  // Card yapısıyla arayüz oluşturuyoruz.
   return (
     <Card className="mt-5 mx-auto" style={{maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
       <Card.Body>
         <Card.Title className="mb-4 text-center">İspanyolca</Card.Title>
         {error ? (
-      <div className="alert alert-success text-center">
-            {error}</div>
+          <div className="alert alert-success text-center">
+            {error}
+          </div>
         ) : (
           <>
-            <Button onClick={getRandomWord} className="mb-4 d-block mx-auto" style={{backgroundColor: '#647daf',border: 'none'}}>
+            <Button
+              onClick={getRandomWord}
+              className="mb-4 d-block mx-auto"
+              style={{backgroundColor: '#647daf', border: 'none'}}
+            >
               Öğrenmeye Başla
             </Button>
             {randomWord && (
@@ -139,13 +150,14 @@ function LearnSpanish() {
                     </Button>
                   </Col>
                 </Row>
+                {/* Kullanıcının sayfadan çıkması için "Bu Kadar Yeter" butonu */}
                 <Button
                   className="mt-4 d-block mx-auto"
-                  variant='dark'
+                  variant="dark"
                   onClick={() => navigate('/language/english')}
                 >
                   Bu Kadar Yeter
-                </Button>                
+                </Button>
               </>
             )}
           </>
@@ -155,4 +167,5 @@ function LearnSpanish() {
   );
 }
 
+// Bileşeni dışa aktarıyoruz.
 export default LearnSpanish;
