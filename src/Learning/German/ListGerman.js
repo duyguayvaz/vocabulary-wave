@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Alert, ListGroup } from 'react-bootstrap';
+import { Card, Alert, ListGroup } from 'react-bootstrap';
 
 function ListGerman() {
   const [knownWords, setKnownWords] = useState([]);
@@ -40,18 +40,20 @@ function ListGerman() {
   }, []);
 
   return (
-    <Container className="mt-5">
-      <h2>Öğrendiğim Almanca Kelimeler</h2>
-      {error ? (
-        <Alert variant="danger">{error}</Alert>
-      ) : (
-        <ListGroup>
-          {knownWords.map((word, index) => (
-            <ListGroup.Item key={index}>{word}</ListGroup.Item>
-          ))}
-        </ListGroup>
-      )}
-    </Container>
+    <Card className="mt-5 mx-auto" style={{ maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
+      <Card.Body>
+        <Card.Title className="text-center">Öğrendiğim Kelimeler</Card.Title>
+        {error ? (
+          <Alert variant="danger" className="text-center">{error}</Alert>
+        ) : (
+          <ListGroup>
+            {knownWords.map((word, index) => (
+              <ListGroup.Item key={index}>{word}</ListGroup.Item>
+            ))}
+          </ListGroup>
+        )}
+      </Card.Body>
+    </Card>
   );
 }
 

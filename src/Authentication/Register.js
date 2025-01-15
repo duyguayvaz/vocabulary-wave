@@ -30,14 +30,13 @@ function Register() {
   return (
     <Card className="auth-card">
       <Card.Body>
-        <Card.Title className="title mb-4">Register for Vocabulary Wave</Card.Title>
+        <Card.Title className="title mb-4">Hoş Geldiniz</Card.Title>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleRegister}>
           <Form.Group className="mb-3" controlId="formUsername">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Kullanıcı Adı</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter your name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -45,10 +44,9 @@ function Register() {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formEmail">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>E-mail</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -56,22 +54,21 @@ function Register() {
           </Form.Group>
 
           <Form.Group className="mb-4" controlId="formPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Şifre</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Create a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </Form.Group>
 
-          <Button variant="success" type="submit" className="w-100">
-            Register
+          <Button type="submit" className="button mb-2 w-100">
+            Kayıt Ol
           </Button>
         </Form>
         <div className="mt-3 text-center">
-          <a href="/login">Already have an account? Login here</a>
+          <a href="/login">Giriş yapmak için buraya tıklayın</a>
         </div>
       </Card.Body>
     </Card>

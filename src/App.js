@@ -14,6 +14,7 @@ import AddWord from './AdminMenu/AddWord';
 import UpdateWord from './AdminMenu/UpdateWord'; 
 import DeleteWord from './AdminMenu/DeleteWord';
 import MyInfo from './UserMenu/MyInfo';
+import MyVocabularys from './UserMenu/MyVocabularys.js'
 
 import LearnEnglish from './Learning/English/LearnEnglish'; 
 import ListEnglish from'./Learning/English/ListEnglish';
@@ -37,7 +38,6 @@ import QuizSpanish from './Learning/Spanish/QuizSpanish';
 
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
-import MyVocabularys from './UserMenu/MyVocabularys.js';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,7 +57,7 @@ function App() {
             className = "navbar" 
             expand="lg">
           <Container>           
-            <Navbar.Brand as={Link} to={isLoggedIn ? (isAdmin ? "/" : "/") : "/login"}>
+            <Navbar.Brand className='navbar_v' as={Link} to={isLoggedIn ? (isAdmin ? "/" : "/") : "/login"}>
               Vocabulary Wave
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -65,17 +65,14 @@ function App() {
               <Nav className="ms-auto">
                 {isLoggedIn ? (
                   <>
-                    <Navbar.Text className="me-3">
-                      Signed in as: {user}
-                    </Navbar.Text>
                     <Button variant="outline-light" onClick={handleLogout}>
-                      Logout
+                      Çıkış Yap
                     </Button>
                   </>
                 ) : (
                   <>
-                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                    <Nav.Link as={Link} to="/register">Register</Nav.Link>
+                    <Nav.Link as={Link} to="/login">Giriş Yap</Nav.Link>
+                    <Nav.Link as={Link} to="/register">Kayıt Ol</Nav.Link>
                   </>
                 )}
               </Nav>
@@ -339,8 +336,6 @@ function App() {
                 }
               />
             </Route>
-
-
 
           </Routes>
         </Container>

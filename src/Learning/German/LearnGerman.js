@@ -1,7 +1,6 @@
-// src/Learning/German/LearnGerman.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Alert, Button, Row, Col } from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 
 function LearnGerman() {
   const [words, setWords] = useState([]);
@@ -86,41 +85,46 @@ function LearnGerman() {
   };
 
   return (
-    <Container className="mt-5">
-      <h2>Almanca Öğren</h2>
-      {error ? (
-        <Alert variant="danger">{error}</Alert>
-      ) : (
-        <>
-          <Button variant="primary" onClick={getRandomWord} className="mb-3">
-            Rastgele Kelime Seç
-          </Button>
-          {randomWord && (
-            <Alert variant="success">
-              <strong>{randomWord.word}</strong> - {randomWord.word_tr}
-              <Row className="mt-3">
-                <Col>
-                  <Button
-                    variant="success"
-                    onClick={() => updateWordStatus('know')}
-                  >
-                    Biliyorum
-                  </Button>
-                </Col>
-                <Col>
-                  <Button
-                    variant="warning"
-                    onClick={() => updateWordStatus('notknow')}
-                  >
-                    Bilmiyorum
-                  </Button>
-                </Col>
-              </Row>
-            </Alert>
-          )}
-        </>
-      )}
-    </Container>
+    <Card className="mt-5 mx-auto" style={{maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
+      <Card.Body>
+        <Card.Title className="text-center">Almanca</Card.Title>
+        {error ? (
+          <div className="alert alert-danger text-center">
+            {error}</div>
+        ) : (
+          <>
+            <Button onClick={getRandomWord} className="mb-4 d-block mx-auto" style={{backgroundColor: '#647daf',border: 'none'}}>
+              Öğrenmeye Başla
+            </Button>
+            {randomWord && (
+              <>
+                <Card.Text className="text-center">
+                  <strong>{randomWord.word}</strong> - {randomWord.word_tr}
+                </Card.Text>
+                <Row className="mt-3">
+                  <Col className="text-center">
+                    <Button
+                      variant="success"
+                      onClick={() => updateWordStatus('know')}
+                    >
+                      Biliyorum
+                    </Button>
+                  </Col>
+                  <Col className="text-center">
+                    <Button
+                      variant="danger"
+                      onClick={() => updateWordStatus('notknow')}
+                    >
+                      Bilmiyorum
+                    </Button>
+                  </Col>
+                </Row>
+              </>
+            )}
+          </>
+        )}
+      </Card.Body>
+    </Card>
   );
 }
 

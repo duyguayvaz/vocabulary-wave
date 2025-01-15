@@ -38,14 +38,13 @@ function Login({ setIsLoggedIn, setIsAdmin, setUser }) {
   return (
     <Card className="auth-card">
       <Card.Body>
-        <Card.Title className="title mb-4">Login to Vocabulary Wave</Card.Title>
+        <Card.Title className="title mb-4">Hoş Geldiniz</Card.Title>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3" controlId="formIdentifier">
-            <Form.Label>Email or Username</Form.Label>
+            <Form.Label>Kullanıcı adı veya e-mail</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter email or username"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
               required
@@ -53,22 +52,21 @@ function Login({ setIsLoggedIn, setIsAdmin, setUser }) {
           </Form.Group>
 
           <Form.Group className="mb-4" controlId="formPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Şifre</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit" className="w-100">
-            Login
+          <Button type="submit" className="button mb-2 w-100">
+            Giriş Yap
           </Button>
         </Form>
         <div className="mt-3 text-center">
-          <a href="/register">Don't have an account? Register here</a>
+          <a href="/register">Kayıt olmak için buraya tıklayın</a>
         </div>
       </Card.Body>
     </Card>

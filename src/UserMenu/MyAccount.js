@@ -20,7 +20,7 @@ function MyAccount() {
           Bilgilerim
         </Button>
         <Button 
-            className="button mb-3 w-100" onClick={()=> navigate('/my-vocabularys')}>
+            className="button mb-3 w-100" onClick={() => navigate('/my-vocabularys')}>
           Kelime Haznem
         </Button>
       </Card.Body>

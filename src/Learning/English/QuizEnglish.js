@@ -47,22 +47,17 @@ function QuizEnglish() {
 
   const handleNextWord = () => {
     if (learnedWords.length > 0) {
-      // --> Yeni eklenen kod: Daha önce seçilmeyen bir kelime seçme
       const randomIndex = Math.floor(Math.random() * learnedWords.length);
-      const selectedWord = learnedWords[randomIndex];
-      setCurrentWord(selectedWord);
-      
-      // --> Yeni eklenen kod: Seçilen kelimeyi listeden çıkarma
-      setLearnedWords((prevWords) => prevWords.filter((word) => word.documentId !== selectedWord.documentId));
-      
+      setCurrentWord(learnedWords[randomIndex]);
       setFeedback(null);
       setUserAnswer('');
     } else {
       setCurrentWord(null);
       setFeedback('Quiz tamamlandı!');
+      setTimeout(() => navigate('/english'), 2000); // 2 saniye sonra bir önceki menüye dön
     }
   };
-  
+
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
 
@@ -79,6 +74,11 @@ function QuizEnglish() {
         {
           data: {
             word_status: newStatus,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
         }
       );

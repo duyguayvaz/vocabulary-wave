@@ -16,7 +16,7 @@ function MainMenu() {
   return (
     <Card className="menu-card">
       <Card.Body>
-        <Card.Title className="title mb-5">Ana Menü</Card.Title>
+        <Card.Title className="title mb-4">Ana Menü</Card.Title>
 
         <Button 
           className="button mb-3 w-100"
