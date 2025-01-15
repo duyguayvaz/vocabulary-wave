@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Yönlendirme için import
 import axios from 'axios';
-import { Container, Alert, Button, Form } from 'react-bootstrap';
+import { Card, Alert, Button, Form } from 'react-bootstrap';
 
 function QuizGerman() {
   const [learnedWords, setLearnedWords] = useState([]);
@@ -9,8 +8,6 @@ function QuizGerman() {
   const [userAnswer, setUserAnswer] = useState('');
   const [feedback, setFeedback] = useState(null);
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate(); // Yönlendirme için hook
 
   useEffect(() => {
     fetchLearnedWords();
@@ -47,14 +44,19 @@ function QuizGerman() {
 
   const handleNextWord = () => {
     if (learnedWords.length > 0) {
+      // --> Yeni eklenen kod: Daha önce seçilmeyen bir kelime seçme
       const randomIndex = Math.floor(Math.random() * learnedWords.length);
-      setCurrentWord(learnedWords[randomIndex]);
+      const selectedWord = learnedWords[randomIndex];
+      setCurrentWord(selectedWord);
+      
+      // --> Yeni eklenen kod: Seçilen kelimeyi listeden çıkarma
+      setLearnedWords((prevWords) => prevWords.filter((word) => word.documentId !== selectedWord.documentId));
+      
       setFeedback(null);
       setUserAnswer('');
     } else {
       setCurrentWord(null);
       setFeedback('Quiz tamamlandı!');
-      setTimeout(() => navigate('/german'), 2000); // 2 saniye sonra bir önceki menüye dön
     }
   };
 
@@ -78,7 +80,7 @@ function QuizGerman() {
         }
       );
 
-      setFeedback(isCorrect ? 'Doğru cevap! Kelime "know" olarak işaretlendi.' : 'Yanlış cevap. Kelime "notknow" olarak işaretlendi.');
+      setFeedback(isCorrect ? 'Doğru cevap!' : 'Yanlış cevap!');
 
       // Güncellenen kelimeyi state'den çıkar ve yeni bir kelimeyi seç
       setLearnedWords((prevWords) =>
@@ -95,40 +97,46 @@ function QuizGerman() {
   };
 
   return (
-    <Container className="mt-5">
-      <h2>Quiz German</h2>
-      {error ? (
-        <Alert variant="danger">{error}</Alert>
-      ) : (
-        <>
-          {!currentWord && (
-            <Button variant="primary" onClick={handleNextWord} className="mb-3">
-              Quiz'e Başla
-            </Button>
-          )}
-          {currentWord && (
-            <Alert variant="info">
-              <strong>{currentWord.word}</strong> kelimesinin Türkçesi nedir?
-              <Form onSubmit={handleAnswerSubmit} className="mt-3">
-                <Form.Group controlId="userAnswer">
-                  <Form.Control
-                    type="text"
-                    placeholder="Türkçe karşılığını yazın"
-                    value={userAnswer}
-                    onChange={(e) => setUserAnswer(e.target.value)}
-                    required
-                  />
-                </Form.Group>
-                <Button variant="success" type="submit" className="mt-2">
-                  Cevabı Kontrol Et
-                </Button>
-              </Form>
-            </Alert>
-          )}
-          {feedback && <Alert variant={feedback.includes('Doğru') ? 'success' : 'danger'}>{feedback}</Alert>}
-        </>
-      )}
-    </Container>
+    <Card className="mt-5 mx-auto" style={{ maxWidth: '600px' }}>
+      <Card.Body>
+        <Card.Title className="text-center">Quiz</Card.Title>
+        {error ? (
+          <Alert variant="danger" className="text-center">{error}</Alert>
+        ) : (
+          <>
+            {!currentWord && (
+              <Button onClick={handleNextWord} className="mb-3 d-block mx-auto" style={{backgroundColor: '#647daf',border: 'none'}}>
+                Quiz'e Başla
+              </Button>
+            )}
+            {currentWord && (
+              <Alert style={{backgroundColor: '#f3f3f3'}}>
+                <strong>{currentWord.word}</strong> kelimesinin Türkçesi nedir?
+                <Form onSubmit={handleAnswerSubmit} className="mt-3">
+                  <Form.Group controlId="userAnswer" >
+                    <Form.Control
+                      type="text"
+                      placeholder="Türkçe karşılığını yazın"
+                      value={userAnswer}
+                      onChange={(e) => setUserAnswer(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                  <Button type="submit" className="mt-2 d-block mx-auto" style={{backgroundColor: '#647daf',border: 'none'}}>
+                    Cevabı Kontrol Et
+                  </Button>
+                </Form>
+              </Alert>
+            )}
+            {feedback && (
+              <Alert variant={feedback.includes('Doğru') ? 'success' : 'danger'} className="mt-3">
+                {feedback}
+              </Alert>
+            )}
+          </>
+        )}
+      </Card.Body>
+    </Card>
   );
 }
 

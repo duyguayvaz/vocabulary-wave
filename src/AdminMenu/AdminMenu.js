@@ -20,7 +20,7 @@ function AdminMenu() {
   return (
     <Card className="menu-card">
       <Card.Body>
-        <Card.Title className="title mb-4">Admin Menu</Card.Title>
+        <Card.Title className="title mb-4">Admin Menü</Card.Title>
         <Button
           className="button mb-3 w-100"
           onClick={handleAddWord}
@@ -36,10 +36,6 @@ function AdminMenu() {
           className="button mb-3 w-100"
           onClick={handleDeleteWord}>
           Kelime Sil
-        </Button>
-        <Button  
-        className="button mb-3 w-100">
-          Satın Alma İşlemleri
         </Button>
       </Card.Body>
     </Card>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Alert, Button, Row, Col } from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 
 function WillLearnSpanish() {
   const [unknownWords, setUnknownWords] = useState([]); // "notknow" kelimeler
@@ -86,42 +86,47 @@ function WillLearnSpanish() {
   };
   
   return (
-    <Container className="mt-5">
-      <h2>Bilinmeyen Kelimeler</h2>
-      {error ? (
-        <Alert variant="danger">{error}</Alert>
-      ) : (
-        <>
-          <Button variant="primary" onClick={showRandomWord} className="mb-3">
-            Rastgele Kelime Göster
-          </Button>
-          {randomWord && (
-            <Alert variant="success">
-              <strong>{randomWord.word}</strong> - {randomWord.word_tr}
-              <Row className="mt-3">
-                <Col>
-              <Button
-                variant="success"
-                onClick={() => markAsLearned(randomWord.documentId)}
-              >
-                Öğrendim
+     <Card className="mt-5 mx-auto" style={{maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
+        <Card.Body>
+          <Card.Title className="mb-4 text-center">Öğreneceğim Kelimeler</Card.Title>
+          {error ? (
+            <div className="alert alert-danger text-center">
+            {error}</div>       
+           ) : (
+            <>
+              <Button onClick={showRandomWord} className="mb-4 d-block mx-auto" style={{backgroundColor: '#647daf',border: 'none'}}>
+                Öğrenmeye Başla
               </Button>
-              </Col>
-              <Col>
-              <Button
-                variant="success"
-                onClick={showRandomWord}
-              >
-                Tekrar Et
-              </Button>
-              </Col>
-              </Row>
-            </Alert>
+              {randomWord && (
+                <>
+                  <Card.Text className="text-center">
+                    <strong>{randomWord.word}</strong> - {randomWord.word_tr}
+                  </Card.Text>
+                  <Row className="mt-3">
+                    <Col className="text-center">
+                      <Button
+                        variant="success"
+                        onClick={() =>markAsLearned(randomWord.documentId)}
+                      >
+                        Öğrendim
+                      </Button>
+                    </Col>
+                    <Col className="text-center">
+                      <Button
+                        variant="danger"
+                        onClick={showRandomWord}
+                      >
+                        Tekrar Et
+                      </Button>
+                    </Col>
+                  </Row>
+                </>
+              )}
+            </>
           )}
-        </>
-      )}
-    </Container>
-  );
+        </Card.Body>
+      </Card>
+    );
 }
 
 export default WillLearnSpanish;

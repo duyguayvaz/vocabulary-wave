@@ -101,7 +101,7 @@ function LearnSpanish() {
   return (
     <Card className="mt-5 mx-auto" style={{maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
       <Card.Body>
-        <Card.Title className="text-center">İspanyolca</Card.Title>
+        <Card.Title className="mb-4 text-center">İspanyolca</Card.Title>
         {error ? (
           <div className="alert alert-danger text-center">
             {error}</div>

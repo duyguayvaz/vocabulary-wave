@@ -106,7 +106,7 @@ function LearnFrench() {
   return (
     <Card className="mt-5 mx-auto" style={{maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
       <Card.Body>
-        <Card.Title className="text-center">Fransızca</Card.Title>
+        <Card.Title className="mb-4 text-center">Fransızca</Card.Title>
         {error ? (
           <div className="alert alert-danger text-center">
             {error}</div>
