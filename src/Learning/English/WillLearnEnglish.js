@@ -46,8 +46,10 @@ function WillLearnEnglish() {
     if (unknownWords.length > 0) {
       const randomIndex = Math.floor(Math.random() * unknownWords.length);
       setRandomWord(unknownWords[randomIndex]);
+      setError(null); // Eğer kelime varsa hata mesajını temizle
     } else {
       setRandomWord(null);
+      setError('Tüm Kelimeleri Öğrendin.'); // Kelime kalmadığında hata mesajı göster
     }
   };
 
@@ -86,7 +88,7 @@ function WillLearnEnglish() {
       <Card.Body>
         <Card.Title className="mb-4 text-center">Öğreneceğim Kelimeler</Card.Title>
         {error ? (
-          <div className="alert alert-danger text-center">
+          <div className="alert alert-success text-center">
           {error}</div>       
          ) : (
           <>

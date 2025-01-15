@@ -54,8 +54,10 @@ function LearnGerman() {
     if (words.length > 0) {
       const randomIndex = Math.floor(Math.random() * words.length);
       setRandomWord(words[randomIndex]);
+      setError(null); // Eğer kelime varsa hata mesajını temizle
     } else {
       setRandomWord(null);
+      setError('Tüm Kelimeleri Gördün.'); // Kelime kalmadığında hata mesajı göster
     }
   };
 
@@ -89,53 +91,54 @@ function LearnGerman() {
   };
 
   return (
-    <Card className="mt-5 mx-auto" style={{maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
-      <Card.Body>
-        <Card.Title className="mb-4 text-center">Almanca</Card.Title>
-        {error ? (
-          <div className="alert alert-danger text-center">
-            {error}</div>
-        ) : (
+<Card className="mt-5 mx-auto" style={{maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
+  <Card.Body>
+    <Card.Title className="mb-4 text-center">Almanca</Card.Title>
+    {error ? (
+      <div className="alert alert-success text-center">
+        {error}
+      </div>
+    ) : (
+      <>
+        <Button onClick={getRandomWord} className="mb-4 d-block mx-auto" style={{backgroundColor: '#647daf', border: 'none'}}>
+          Öğrenmeye Başla
+        </Button>
+        {randomWord && (
           <>
-            <Button onClick={getRandomWord} className="mb-4 d-block mx-auto" style={{backgroundColor: '#647daf',border: 'none'}}>
-              Öğrenmeye Başla
-            </Button>
-            {randomWord && (
-              <>
-                <Card.Text className="text-center">
-                  <strong>{randomWord.word}</strong> - {randomWord.word_tr}
-                </Card.Text>
-                <Row className="mt-3">
-                  <Col className="text-center">
-                    <Button
-                      variant="success"
-                      onClick={() => updateWordStatus('know')}
-                    >
-                      Biliyorum
-                    </Button>
-                  </Col>
-                  <Col className="text-center">
-                    <Button
-                      variant="danger"
-                      onClick={() => updateWordStatus('notknow')}
-                    >
-                      Bilmiyorum
-                    </Button>
-                  </Col>
-                </Row>
+            <Card.Text className="text-center">
+              <strong>{randomWord.word}</strong> - {randomWord.word_tr}
+            </Card.Text>
+            <Row className="mt-3">
+              <Col className="text-center">
                 <Button
-                  className="mt-4 d-block mx-auto"
-                  variant='dark'
-                  onClick={() => navigate('/language/english')}
+                  variant="success"
+                  onClick={() => updateWordStatus('know')}
                 >
-                  Bu Kadar Yeter
-                </Button>                
-              </>
-            )}
+                  Biliyorum
+                </Button>
+              </Col>
+              <Col className="text-center">
+                <Button
+                  variant="danger"
+                  onClick={() => updateWordStatus('notknow')}
+                >
+                  Bilmiyorum
+                </Button>
+              </Col>
+            </Row>
+            <Button
+              className="mt-4 d-block mx-auto"
+              variant="dark"
+              onClick={() => navigate('/language/english')}
+            >
+              Bu Kadar Yeter
+            </Button>
           </>
         )}
-      </Card.Body>
-    </Card>
+      </>
+    )}
+  </Card.Body>
+</Card>
   );
 }
 

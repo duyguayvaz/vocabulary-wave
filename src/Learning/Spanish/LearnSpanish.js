@@ -64,8 +64,10 @@ function LearnSpanish() {
     if (words.length > 0) {
       const randomIndex = Math.floor(Math.random() * words.length);
       setRandomWord(words[randomIndex]);
+      setError(null); // Eğer kelime varsa hata mesajını temizle
     } else {
       setRandomWord(null);
+      setError('Tüm Kelimeleri Gördün.'); // Kelime kalmadığında hata mesajı göster
     }
   };
 
@@ -107,7 +109,7 @@ function LearnSpanish() {
       <Card.Body>
         <Card.Title className="mb-4 text-center">İspanyolca</Card.Title>
         {error ? (
-          <div className="alert alert-danger text-center">
+      <div className="alert alert-success text-center">
             {error}</div>
         ) : (
           <>

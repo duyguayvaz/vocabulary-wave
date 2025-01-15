@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Alert, ListGroup } from 'react-bootstrap';
+import { Card, Alert, ListGroup } from 'react-bootstrap';
 
 function ListSpanish() {
   const [knownWords, setKnownWords] = useState([]);
@@ -40,10 +40,11 @@ function ListSpanish() {
   }, []);
 
   return (
-    <Container className="mt-5">
-      <h2>Öğrendiğim Kelimeler</h2>
+    <Card className="mt-5 mx-auto" style={{ maxWidth: '600px', backgroundColor: '#f3f3f3' }}>
+    <Card.Body>
+      <Card.Title className="text-center">Öğrendiğim Kelimeler</Card.Title>
       {error ? (
-        <Alert variant="danger">{error}</Alert>
+        <Alert variant="danger" className="text-center">{error}</Alert>
       ) : (
         <ListGroup>
           {knownWords.map((word, index) => (
@@ -51,7 +52,8 @@ function ListSpanish() {
           ))}
         </ListGroup>
       )}
-    </Container>
+    </Card.Body>
+  </Card>
   );
 }
 
