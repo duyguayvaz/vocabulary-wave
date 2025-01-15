@@ -37,6 +37,7 @@ import QuizSpanish from './Learning/Spanish/QuizSpanish';
 
 
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import MyVocabularys from './UserMenu/MyVocabularys.js';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -330,7 +331,14 @@ function App() {
               />
             </Route>
 
-
+            <Route>
+              <Route
+                path="/my-vocabularys"
+                element={
+                  isLoggedIn ? <MyVocabularys /> : <Navigate to="/login" />
+                }
+              />
+            </Route>
 
 
 
