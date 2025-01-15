@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Alert, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-function MyInfo({ user }) {
+function MyInfo() {
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -71,10 +71,11 @@ function MyInfo({ user }) {
             <p><strong>Email:</strong> {userInfo.email}</p>
             <Button 
               variant="secondary" 
-              className="mt-3" 
+              className="mt-3"
+              style={{backgroundColor: '#647daf',border: 'none'}} 
               onClick={() => setShowForm(!showForm)}
             >
-              Güncelle
+              Bilgileri Güncelle
             </Button>
           </div>
         )}
@@ -101,8 +102,11 @@ function MyInfo({ user }) {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
-              Bilgileri Güncelle
+            <Button  
+            type="submit" 
+            className="mt-3" 
+            style={{backgroundColor: '#647daf',border: 'none'}}>
+              Güncelle
             </Button>
           </Form>
         )}

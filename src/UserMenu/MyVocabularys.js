@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Card, Alert, Row, Col } from 'react-bootstrap';
+import { Card, Alert } from 'react-bootstrap';
 
 function MyVocabularys() {
   const [wordStats, setWordStats] = useState({});
   const [error, setError] = useState(null);
 
   const languages = [
-    { id: 1, langId: 2, name: 'English', key: 'english' },
-    { id: 3, langId: 7, name: 'German', key: 'german' },
-    { id: 5, langId: 8, name: 'French', key: 'french' },
-    { id: 11, langId: 13, name: 'Spanish', key: 'spanish' },
+    { id: 1, langId: 2, name: 'İngilizce', key: 'english' },
+    { id: 3, langId: 7, name: 'Almanca', key: 'german' },
+    { id: 5, langId: 8, name: 'Fransızca', key: 'french' },
+    { id: 11, langId: 13, name: 'İspanyolca', key: 'spanish' },
   ];
 
   const fetchWordStatistics = async (langId, wordId, langKey) => {
@@ -53,27 +53,29 @@ function MyVocabularys() {
     total > 0 ? ((known / total) * 100).toFixed(2) : 0;
 
   return (
-    <Container className="mt-5">
-      <h2>Kelimelerim</h2>
-      {error ? (
-        <Alert variant="danger">{error}</Alert>
-      ) : (
-        <Row>
-          {languages.map(({ key, name }) => (
-              <Card className="shadow-sm">
+    <Card className="mt-5 mx-auto" style={{ maxWidth: '500px' }}>
+      <Card.Body>
+        <Card.Title className="title mb-4">Kelime Haznem</Card.Title>
+        {error ? (
+          <Alert variant="danger" className="text-center">{error}</Alert>
+        ) : (
+          <>
+            {languages.map(({ key, name }) => (
+              <Card className="mb-3 shadow-sm" key={key}>
                 <Card.Body>
                   <Card.Title>{name}</Card.Title>
                   <Card.Text>
-                    <strong>Bildiğiniz Kelime Sayısı:</strong> {wordStats[key]?.known.length || 0}
+                    <strong>Bildiğim Kelime Sayısı:</strong> {wordStats[key]?.known.length || 0}
                     <br />
-                    <strong>Bildiğiniz Yüzde:</strong> %{calculatePercentage(wordStats[key]?.known.length || 0, wordStats[key]?.total || 0)}
+                    <strong>İlerleme Kaydı:</strong> %{calculatePercentage(wordStats[key]?.known.length || 0, wordStats[key]?.total || 0)}
                   </Card.Text>
                 </Card.Body>
               </Card>
-          ))}
-        </Row>
-      )}
-    </Container>
+            ))}
+          </>
+        )}
+      </Card.Body>
+    </Card>
   );
 }
 

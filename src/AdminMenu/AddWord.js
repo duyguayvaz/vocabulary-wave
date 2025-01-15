@@ -55,13 +55,15 @@ function AddWord() {
           <Form.Label>Dil ID (lang_id)</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Dil ID'sini girin"
+            placeholder="İngilizce = 1 / Almanca = 3 / Fransızca = 5 / İspanyolca = 11"
             value={lang_id}
             onChange={(e) => setLangId(e.target.value)}
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button  
+        type="submit" 
+        style={{backgroundColor: '#647daf',border: 'none'}}>
           Ekle
         </Button>
       </Form>

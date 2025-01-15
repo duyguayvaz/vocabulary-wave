@@ -141,7 +141,7 @@ function UpdateWord() {
               required
             />
           </Form.Group>
-          <Button variant="success" type="submit">
+          <Button variant="primary" type="submit">
             Güncelle
           </Button>
         </Form>
