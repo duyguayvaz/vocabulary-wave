@@ -12,8 +12,11 @@ function ListEnglish() {
         const token = localStorage.getItem('jwt');
 
         // Kullanıcı bilgilerini çek
-        const userResponse = await axios.get('http://localhost:1337/api/users/me');
-
+        const userResponse = await axios.get('http://localhost:1337/api/users/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const userId = userResponse.data.id;
 
         // Kullanıcının relations verisini çek
